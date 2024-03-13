@@ -11,6 +11,12 @@ const server = http.createServer(app);
 import { Server } from "socket.io";
 const io = new Server(server);
 
+import path from "path";
+
+import { fileURLToPath } from "url";
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+
 // Settings
 
 const port = 3000;
@@ -30,7 +36,7 @@ io.on("connection", (socket) => {
 // Listen for connections
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/test.html");
+  res.sendFile(path.join(dirname, "/public/test.html"));
 });
 
 server.listen(port, () => {
