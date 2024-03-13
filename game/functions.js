@@ -7,3 +7,8 @@ function nextFrame(animatedFunction) {
     requestAnimationFrame(animatedFunction);
   }, 1000 / FPS);
 }
+
+export default {
+  clearCanvas,
+  nextFrame,
+};

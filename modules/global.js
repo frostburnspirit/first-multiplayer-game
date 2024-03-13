@@ -9,14 +9,4 @@ const black = "\x1b[30m%s\x1b[0m";
 const gray = "\x1b[90m%s\x1b[0m";
 const white = "\x1b[37m%s\x1b[0m";
 
-module.exports = {
-  black,
-  red,
-  green,
-  yellow,
-  blue,
-  magenta,
-  cyan,
-  white,
-  gray,
-};
+export { black, red, green, yellow, blue, magenta, cyan, white, gray };

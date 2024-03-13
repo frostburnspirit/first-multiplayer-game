@@ -1,24 +1,36 @@
-const express = require("express");
+// const express = require("express");
+import express from "express";
 const app = express();
-const glb = require("./modules/global");
+import * as glb from "./modules/global.js";
 
-const http = require("http");
+// const http = require("http");
+import http from "http";
 const server = http.createServer(app);
 
-const { Server } = require("socket.io");
+// const { Server } = require("socket.io");
+import { Server } from "socket.io";
 const io = new Server(server);
+
+// Settings
 
 const port = 3000;
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/for client/test.html");
-});
+app.use(express.static("public"));
+
+// Socket.io
 
 io.on("connection", (socket) => {
   console.log(glb.blue, "new connection!");
-  socket.on("test", (stri) => {
-    console.log(stri);
+
+  socket.on("test", (str) => {
+    console.log(str);
   });
+});
+
+// Listen for connections
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/test.html");
 });
 
 server.listen(port, () => {
