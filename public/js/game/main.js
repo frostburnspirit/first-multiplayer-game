@@ -1,15 +1,16 @@
+import c from "./constants.js";
 import ini from "./ini.js";
 import draw from "./canvasFunctions.js";
 
 function main() {
-  draw.clearCanvas(canvas, ctx);
-  ctx.fillStyle = "#5500FF";
-  draw.drawCircle(ctx);
-  draw.nextFrame(main, fps);
+  draw.clearCanvas(c.canvas, c.ctx);
+  c.ctx.fillStyle = "#5500FF";
+  draw.drawCircle(c.ctx);
+  draw.nextFrame(main, c.fps);
 }
 
-ini.ini();
-const ctx = ini.ctx;
-const fps = ini.fps;
-const canvas = ini.canvas;
+ini.ini(c.canvas, c.resolution);
+
+// create file for constants and import at top
+
 main();
