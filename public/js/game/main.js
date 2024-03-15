@@ -5,7 +5,18 @@ import draw from "./canvasFunctions.js";
 let drawObjects = { layer1: {}, layer2: {}, layer3: {} };
 
 function updatePlayer() {
-  drawObjects.layer1.player = { type: "circle", x: 100, y: 100 };
+  if (!drawObjects.layer1.player) {
+    drawObjects.layer1.player = {
+      type: "circle",
+      x: 100,
+      y: 100,
+      radius: 50,
+      color: "441199",
+    };
+  } else {
+    drawObjects.layer1.player.x += 1;
+    drawObjects.layer1.player.radius += 1;
+  }
 }
 
 function main() {
