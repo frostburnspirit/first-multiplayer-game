@@ -19,12 +19,13 @@ function updatePlayer() {
 }
 
 // c.canvas.addeven
-let keysPressed = {
-  up: undefined,
-  down: undefined,
-  left: undefined,
-  right: undefined,
+const keysPressed = {
+  up: false,
+  down: false,
+  left: false,
+  right: false,
 };
+
 document.addEventListener("keydown", (e) => {
   // Maybe check for keys and key combinations that aren't relevant too? https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
 
@@ -35,6 +36,7 @@ document.addEventListener("keydown", (e) => {
     !Object.values(keysPressed).includes("up")
   ) {
     console.log(e.code);
+    keysPressed.up = true;
   }
 
   // if ((e.code === "ArrowUp" || e.code === "KeyW") && !keysPressed.up) {
