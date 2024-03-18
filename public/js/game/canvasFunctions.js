@@ -2,7 +2,7 @@ function clearCanvas(canvas, ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function draw(ctx, objects) {
+function draw(canvas, ctx, objects) {
   for (let i = 0; i < Object.keys(objects).length; i++) {
     Object.values(objects["layer" + (i + 1)]).forEach((object) => {
       // iterates over drawing layers in the correct order
@@ -11,7 +11,13 @@ function draw(ctx, objects) {
         // object values: type, x, y, radius, color, opacity
         ctx.beginPath();
         ctx.fillStyle = "#" + object.color;
-        ctx.arc(object.x, object.y, object.radius, 0, Math.PI * 2);
+        ctx.arc(
+          object.x,
+          canvas.height - object.y, // flips coordinates to the way more common im math
+          object.radius,
+          0,
+          Math.PI * 2
+        );
         // ctx.stroke();
         ctx.fill();
       }
