@@ -1,33 +1,18 @@
 import * as c from "./constants.js";
 import ini from "./ini.js";
 import draw from "./canvasFunctions.js";
+import player from "./player.js";
+import misc from "../misc/functions.js";
 
 let drawObjects = { layer1: {}, layer2: {}, layer3: {} };
 
 function updatePlayer() {
-  if (!drawObjects.layer1.player) {
-    drawObjects.layer1.player = {
-      type: "circle",
-      x: 100,
-      y: 100,
-      radius: 50,
-      color: "441199",
-    };
-  } else {
-    let drwobj = drawObjects.layer1.player;
-    if (c.keysPressed.up) {
-      drwobj.y += 1;
-    }
-    if (c.keysPressed.down) {
-      drwobj.y -= 1;
-    }
-    if (c.keysPressed.left) {
-      drwobj.x -= 1;
-    }
-    if (c.keysPressed.right) {
-      drwobj.x += 1;
-    }
+  if (misc.isEmpty(c.player)) {
+    // c.player = player.initialize(c.player);
+    player.initialize(c.player);
   }
+  player.move(c.player, c.keysPressed);
+  drawObjects.layer2.player = c.player;
 }
 
 document.addEventListener("keydown", (e) => {

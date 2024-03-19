@@ -8,3 +8,4 @@ export const keysPressed = {
   left: false,
   right: false,
 };
+export const player = {};
