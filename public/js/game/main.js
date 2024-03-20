@@ -8,10 +8,9 @@ let drawObjects = { layer1: {}, layer2: {}, layer3: {} };
 
 function updatePlayer() {
   if (misc.isEmpty(c.player)) {
-    // c.player = player.initialize(c.player);
-    player.initialize(c.player);
+    player.initialize(c.player, c.pixelsPerMeter);
   }
-  player.move(c.player, c.keysPressed);
+  player.move(c.player, c.keysPressed, c.fps, c.pixelsPerMeter, misc);
   drawObjects.layer2.player = c.player;
 }
 

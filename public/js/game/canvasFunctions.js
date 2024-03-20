@@ -3,6 +3,8 @@ function clearCanvas(canvas, ctx) {
 }
 
 function draw(canvas, ctx, objects) {
+  // ! only draw when at least a part of it in frame
+
   for (let i = 0; i < Object.keys(objects).length; i++) {
     Object.values(objects["layer" + (i + 1)]).forEach((object) => {
       // iterates over drawing layers in the correct order
@@ -12,9 +14,9 @@ function draw(canvas, ctx, objects) {
         ctx.beginPath();
         ctx.fillStyle = "#" + object.color;
         ctx.arc(
-          object.x,
-          canvas.height - object.y, // flips coordinates to the way more common im math
-          object.radius,
+          object.truePos.x,
+          canvas.height - object.truePos.y, // flips coordinates to the way more common im math
+          object.trueRadius,
           0,
           Math.PI * 2
         );
