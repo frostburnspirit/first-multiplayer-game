@@ -14,7 +14,6 @@ const io = new Server(server);
 import path from "path";
 
 import { fileURLToPath } from "url";
-import { type } from "os";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -35,9 +34,24 @@ io.on("connection", (socket) => {
 });
 
 // Listen for connections
-
 app.get("/", (req, res) => {
-  res.sendFile(path.join(dirname, "/public/index.html"));
+  // "/" more common than "/main", "/home", "/index" or similar
+  res.sendFile(path.join(dirname, "/public/html/index.html"));
+});
+app.get("/profile", (req, res) => {
+  res.sendFile(path.join(dirname, "/public/html/profile.html"));
+});
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(dirname, "/public/html/about.html"));
+});
+app.get("/legal", (req, res) => {
+  res.sendFile(path.join(dirname, "/public/html/legal.html"));
+});
+
+// For all other paths
+app.use((req, res) => {
+  res.status(404);
+  res.sendFile(path.join(dirname, "/public/html/404.html"));
 });
 
 server.listen(port, () => {
