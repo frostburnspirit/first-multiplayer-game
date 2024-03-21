@@ -39,7 +39,11 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(dirname, "/public/html/index.html"));
 });
 app.get("/profile", (req, res) => {
-  res.sendFile(path.join(dirname, "/public/html/profile.html"));
+  // should only be accessible when logged in
+  res.sendFile(path.join(dirname, "/public/html/personal-profile.html"));
+});
+app.get("/users/:username", (req, res) => {
+  res.sendFile(path.join(dirname, "/public/html/user-profile.html"));
 });
 app.get("/about", (req, res) => {
   res.sendFile(path.join(dirname, "/public/html/about.html"));
