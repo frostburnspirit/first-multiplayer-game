@@ -1,8 +1,8 @@
-import * as c from "./constants.js";
+import * as c from "./constants/constants.js";
 import ini from "./ini.js";
 import draw from "./canvasFunctions.js";
 import player from "./player.js";
-import misc from "../misc/functions.js";
+import misc from "../../../shared/js/functions.js";
 
 let drawObjects = { layer1: {}, layer2: {}, layer3: {} };
 
@@ -18,7 +18,7 @@ document.addEventListener("keydown", (e) => {
   // Maybe check for keys and key combinations that aren't relevant too? https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
 
   // Which one to choose if needed? Should they be used in if statements?
-  //   !Object.values(keysPressed).includes("up") vs !keysPressed.up vs [doesn't work] !keysPressed[up] vs keysPressed.up === "undefined"
+  //-   !Object.values(keysPressed).includes("up") vs !keysPressed.up vs [doesn't work] !keysPressed[up] vs keysPressed.up === "undefined"
 
   // Should if statements be condensed?
   if (e.code === "ArrowUp" || e.code === "KeyW") {
@@ -59,7 +59,7 @@ function main() {
 
 // executing scripts
 
-ini.ini(c.canvas, c.resolution);
+ini.canvasSetup(c.canvas, c.resolution);
 
 // create file for constants and import at top
 

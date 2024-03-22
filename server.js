@@ -1,27 +1,22 @@
-// const express = require("express");
+// express js
 import express from "express";
 const app = express();
-import * as glb from "./modules/global.js";
-
-// const http = require("http");
+// socket.io
 import http from "http";
 const server = http.createServer(app);
-
-// const { Server } = require("socket.io");
 import { Server } from "socket.io";
 const io = new Server(server);
-
+// modules
+import * as glb from "./modules/global.js";
+// path
 import path from "path";
-
 import { fileURLToPath } from "url";
-
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Settings
-
 const port = 3000;
-
 app.use(express.static("public"));
+app.use("/shared", express.static("shared"));
 
 // Socket.io
 

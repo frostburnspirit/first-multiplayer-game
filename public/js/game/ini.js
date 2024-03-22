@@ -1,4 +1,4 @@
-function ini(canvas, resolution) {
+function canvasSetup(canvas, resolution) {
   window.focus;
   canvas.height = innerHeight * 0.8 * resolution; // 0.8 based on canvas taking 80% of the viewport height
   canvas.width = canvas.height * 1.5;
@@ -6,5 +6,5 @@ function ini(canvas, resolution) {
 }
 
 export default {
-  ini,
+  canvasSetup,
 };

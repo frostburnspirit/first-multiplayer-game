@@ -5,7 +5,7 @@ function initialize(player, pixelsPerMeter) {
     trueRadius: 0,
     color: "441199",
     mass: 10,
-    speed: 20, // the force applied to the player, in newtons
+    speed: 200, // the force applied to the player, in newtons
     truePos: { x: 0, y: 0 },
     pos: { x: 0, y: 0 },
     vel: { x: 0, y: 0 },
