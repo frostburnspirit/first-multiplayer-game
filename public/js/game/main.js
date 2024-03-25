@@ -1,17 +1,22 @@
 import * as c from "./constants/constants.js";
 import ini from "./ini.js";
 import draw from "./canvasFunctions.js";
-import player from "./player.js";
+import p from "./player.js";
 import misc from "../../../shared/js/functions.js";
 
 let drawObjects = { layer1: {}, layer2: {}, layer3: {} };
+const player = new p.PlayerClass(c.pixelsPerMeter);
 
 function updatePlayer() {
-  if (misc.isEmpty(c.player)) {
-    player.initialize(c.player, c.pixelsPerMeter);
-  }
-  player.move(c.player, c.keysPressed, c.fps, c.pixelsPerMeter, misc);
-  drawObjects.layer2.player = c.player;
+  player.move(c.keysPressed, c.fps, c.pixelsPerMeter, misc);
+  drawObjects.layer2.player = player.drawInfo;
+}
+
+function main() {
+  draw.clearCanvas(c.canvas, c.ctx);
+  updatePlayer();
+  draw.draw(c.canvas, c.ctx, drawObjects); // objects is an object containing different drawing layers, each cointaining an object with objects {layer1: {obj1:obj1, obj2:something, obj3:test}, layer2: {obj4:obj4, obj5:placeholder} ...}
+  draw.nextFrame(main, c.fps);
 }
 
 document.addEventListener("keydown", (e) => {
@@ -49,13 +54,6 @@ document.addEventListener("keyup", (e) => {
     c.keysPressed.right = false;
   }
 });
-
-function main() {
-  draw.clearCanvas(c.canvas, c.ctx);
-  updatePlayer();
-  draw.draw(c.canvas, c.ctx, drawObjects); // objects is an objects containing different drawing layers, each cointaining an object with objects {layer1: {obj1:obj1, obj2:something, obj3:test}, layer2: {obj4:obj4, obj5:placeholder} ...}
-  draw.nextFrame(main, c.fps);
-}
 
 // executing scripts
 

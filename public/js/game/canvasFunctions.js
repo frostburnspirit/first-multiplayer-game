@@ -3,7 +3,7 @@ function clearCanvas(canvas, ctx) {
 }
 
 function draw(canvas, ctx, objects) {
-  // ! only draw when at least a part of it in frame
+  //^ only draw when at least a part of it in frame
 
   for (let i = 0; i < Object.keys(objects).length; i++) {
     Object.values(objects["layer" + (i + 1)]).forEach((object) => {
