@@ -2,7 +2,7 @@ function clearCanvas(canvas, ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function draw(canvas, ctx, objects) {
+function draw(canvas, ctx, objects, pixelsPerMeter) {
   //^ only draw when at least a part of it in frame
 
   for (let i = 0; i < Object.keys(objects).length; i++) {
@@ -14,9 +14,9 @@ function draw(canvas, ctx, objects) {
         ctx.beginPath();
         ctx.fillStyle = "#" + object.color;
         ctx.arc(
-          object.truePos.x,
-          canvas.height - object.truePos.y, // flips coordinates to the way more common im math
-          object.trueRadius,
+          object.pos.x * pixelsPerMeter,
+          canvas.height - object.pos.y * pixelsPerMeter, // flips coordinates to the way more common im math
+          object.radius * pixelsPerMeter,
           0,
           Math.PI * 2
         );

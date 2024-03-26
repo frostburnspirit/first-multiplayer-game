@@ -2,20 +2,34 @@ import * as c from "./constants/constants.js";
 import ini from "./ini.js";
 import draw from "./canvasFunctions.js";
 import p from "./player.js";
+import e from "./entity.js";
 import misc from "../../../shared/js/functions.js";
 
 let drawObjects = { layer1: {}, layer2: {}, layer3: {} };
-const player = new p.PlayerClass(c.pixelsPerMeter);
-
-function updatePlayer() {
-  player.move(c.keysPressed, c.fps, c.pixelsPerMeter, misc);
-  drawObjects.layer2.player = player.drawInfo;
-}
+const player = new p.Player();
+const entity1 = new e.Entity("circle", "first entity");
+const entity2 = new e.Entity("circle", "second entity", 1, 2);
+let entities = [];
+entities.push(entity1, entity2);
 
 function main() {
   draw.clearCanvas(c.canvas, c.ctx);
-  updatePlayer();
-  draw.draw(c.canvas, c.ctx, drawObjects); // objects is an object containing different drawing layers, each cointaining an object with objects {layer1: {obj1:obj1, obj2:something, obj3:test}, layer2: {obj4:obj4, obj5:placeholder} ...}
+  // check for collisions here (compare, using a regular function, all entities in a loop)
+  // misc calculations
+  player.calculate(c.keysPressed, c.fps);
+  entities.forEach((entity) => {
+    entity.calculate(c.fps);
+  });
+  // applying changes and adding to draw objects
+  player.execute(c.fps);
+  drawObjects.layer2.player = player.drawInfo;
+  entities.forEach((entity) => {
+    entity.execute(c.fps);
+    drawObjects.layer2[entity.name] = entity.drawInfo;
+  });
+  console.log(drawObjects);
+  // drawing changes
+  draw.draw(c.canvas, c.ctx, drawObjects, c.pixelsPerMeter); // objects is an object containing different drawing layers, each cointaining an object with objects {layer1: {obj1:obj1, obj2:something, obj3:test}, layer2: {obj4:obj4, obj5:placeholder} ...}
   draw.nextFrame(main, c.fps);
 }
 
