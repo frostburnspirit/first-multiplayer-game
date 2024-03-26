@@ -9,3 +9,7 @@ export const keysPressed = {
   left: false,
   right: false,
 };
+export const offset = {
+  x: 0,
+  y: 0,
+};

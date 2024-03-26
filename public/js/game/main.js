@@ -1,9 +1,9 @@
 import * as c from "./constants/constants.js";
 import ini from "./ini.js";
-import draw from "./canvasFunctions.js";
+import canvas from "./canvasFunctions.js";
 import p from "./player.js";
 import e from "./entity.js";
-import misc from "../../../shared/js/functions.js";
+import camera from "./camera.js";
 
 let drawObjects = { layer1: {}, layer2: {}, layer3: {} };
 const player = new p.Player();
@@ -13,24 +13,25 @@ let entities = [];
 entities.push(entity1, entity2);
 
 function main() {
-  draw.clearCanvas(c.canvas, c.ctx);
+  canvas.clearCanvas(c.canvas, c.ctx);
   // check for collisions here (compare, using a regular function, all entities in a loop)
-  // misc calculations
+  //& misc calculations
   player.calculate(c.keysPressed, c.fps);
   entities.forEach((entity) => {
     entity.calculate(c.fps);
   });
-  // applying changes and adding to draw objects
+  //& applying changes and adding to draw objects
   player.execute(c.fps);
   drawObjects.layer2.player = player.drawInfo;
   entities.forEach((entity) => {
     entity.execute(c.fps);
     drawObjects.layer2[entity.name] = entity.drawInfo;
   });
-  console.log(drawObjects);
-  // drawing changes
-  draw.draw(c.canvas, c.ctx, drawObjects, c.pixelsPerMeter); // objects is an object containing different drawing layers, each cointaining an object with objects {layer1: {obj1:obj1, obj2:something, obj3:test}, layer2: {obj4:obj4, obj5:placeholder} ...}
-  draw.nextFrame(main, c.fps);
+  //& camera adjustments
+  camera.update(player, c.offset, c.canvas, c.pixelsPerMeter);
+  //& drawing changes
+  canvas.draw(c.canvas, c.ctx, drawObjects, c.pixelsPerMeter, c.offset); // objects is an object containing different drawing layers, each cointaining an object with objects {layer1: {obj1:obj1, obj2:something, obj3:test}, layer2: {obj4:obj4, obj5:placeholder} ...}
+  canvas.nextFrame(main, c.fps);
 }
 
 document.addEventListener("keydown", (e) => {
